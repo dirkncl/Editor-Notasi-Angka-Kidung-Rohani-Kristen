@@ -12,4 +12,4 @@
 
 - Sulit menemukan penulisan 'Notasi Angka' dalam Halaman Web, yang sering ada hanyalah berupa gambar dan atau format PDF. Saya mencoba mencari cara untuk menuliskan 'Notasi Angka' yang bisa dipajang di Halaman web, tapi memang sangat sulit karena pengetahuan tentang HTML dan Javascript sangat minim sekali.
 - Experimen ini hanyalah sekedar merangsang 'Para Ahli IT Indonesia' untuk berbuat lebih agar program sejenis ini bisa di kembangkan.
-- Experimen ini masih sangat 'dibawah premature' dibandingkan dengan program 'Notasi Balok' yang telah bertaburan banyaknya hanya dengan HTML dan Javascript, kita sebut saja ABCJS, Vexflow, Northworthy Composer, weblily dan juga 'Notasi Angka China - Jianpu'.
+- Experimen ini masih sangat 'dibawah premature' dibandingkan dengan program 'Notasi Balok' yang telah bertaburan banyaknya hanya dengan HTML dan Javascript, kita sebut saja ABCJS, Vexflow, Noteworthy Composer, weblily dan juga 'Notasi Angka China - Jianpu'.
