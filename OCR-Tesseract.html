@@ -70,101 +70,9 @@ div.Section1{
   <body>
     <script src="js/FileSaver.min.js"></script>
     <script src="js/tesseract.js"></script>
-    <script>
-var namaFile;
-//var contohGambar=document.getElement
-function progressUpdate(packet){
-	var log = document.getElementById('log');
-	if(log.firstChild && log.firstChild.status === packet.status){
-		if('progress' in packet){
-			var progress = log.firstChild.querySelector('progress')
-			progress.value = packet.progress
-		}
-	}
-  else{
-		var line = document.createElement('div');
-		line.status = packet.status;
-		var status = document.createElement('div')
-		status.className = 'status'
-		status.appendChild(document.createTextNode(packet.status))
-		line.appendChild(status)
 
-		if('progress' in packet){
-			var progress = document.createElement('progress')
-			progress.value = packet.progress
-			progress.max = 1
-			line.appendChild(progress)
-		}
-		if(packet.status == 'done'){
-			var textarea = document.createElement('textarea');
-      textarea.id='ocrtxt';
-      textarea.title='Koreksi jika tidak sesuai dengan gambar panduan diatas';
-      textarea.style.width='680px';
-      textarea.style.height='300px';
-      textarea.onclick=log.style.display='none';
-			textarea.appendChild(document.createTextNode(packet.data.text))
-			line.innerHTML = ''
-			//line.appendChild(textarea)
-      document.getElementById('TextareaHolder').innerHTML = ''
-      document.getElementById('TextareaHolder').appendChild(textarea)
-		}
-		log.insertBefore(line, log.firstChild);
-    
-	}
   
-}
-function dispImg(e) {
-  if (FileReader && e.files && e.files.length) {
-    namaFile=e.files[0].name;
-    //console.log(namaFile);        
-    var fr = new FileReader();
-    fr.onload = function() {
-      //document.getElementById('image').src = fr.result;
-      var gambarPilihan=document.createElement('img');
-      gambarPilihan.setAttribute("height","250px");
-      gambarPilihan.setAttribute("title","Gambar Pilihan");
-      gambarPilihan.src=fr.result;
-      document.getElementById('imgHolder').innerHTML='';
-      document.getElementById('imgHolder').appendChild(gambarPilihan);
-    }
-    fr.readAsDataURL(e.files[0]);
-  }
-};
-  
-function recognizeFile(file){
-	document.querySelector("#log").innerHTML = ''
-	Tesseract.recognize(file, {
-		lang: document.querySelector('#langsel').value
-	}).progress(function(packet){
-    console.info(packet)
-    progressUpdate(packet)
-  }).then(function(data){
-    console.log(data)
-    progressUpdate({ status: 'done', data: data })
-  })
-  
-}
-//document.getElementById('save').src = fr.result;
-function simpan() {
-  var text = document.getElementById("ocrtxt").value;
-  var filename = namaFile;
-  var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-  saveAs(blob, filename + ".txt");
-};
-    </script>
-    <script>
-function proses(){
-  var OcrText=document.getElementById('ocrtxt');
-  var Notes=document.getElementById('notes');
-  Notes.innerHTML=OcrText.value
-};
-  //proses()
- function windowPop(url) {
-  link = window.open(url,"Link","location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,left=0,top=0");
-}
-</script> 
-  </script>
-<a id='imgHolder' style='position:absolute;right:0'><img name='image' id='image' src="1-1.jpg" height="250px;" title='Contoh Gambar'/> </a>
+<a id='imgHolder' style='position:absolute;right:0'><img name='image' id='image' height="250px;" title='Contoh Gambar'/> </a>
 
 <div>
   <div>
@@ -383,5 +291,98 @@ contoh
   <span style='font-family:Parnumation;color:red'>∫</span> - - >   shiift ctrl \  
   </pre>
 </div>
+    <script>
+
+var namaFile="";
+namaFile = "1-1.jpg";
+document.getElementById("image").src = namaFile;
+
+function progressUpdate(packet){
+	var log = document.getElementById('log');
+	if(log.firstChild && log.firstChild.status === packet.status){
+		if('progress' in packet){
+			var progress = log.firstChild.querySelector('progress')
+			progress.value = packet.progress
+		}
+	}
+  else{
+		var line = document.createElement('div');
+		line.status = packet.status;
+		var status = document.createElement('div')
+		status.className = 'status'
+		status.appendChild(document.createTextNode(packet.status))
+		line.appendChild(status)
+
+		if('progress' in packet){
+			var progress = document.createElement('progress')
+			progress.value = packet.progress
+			progress.max = 1
+			line.appendChild(progress)
+		}
+		if(packet.status == 'done'){
+			var textarea = document.createElement('textarea');
+      textarea.id='ocrtxt';
+      textarea.title='Koreksi jika tidak sesuai dengan gambar panduan diatas';
+      textarea.style.width='680px';
+      textarea.style.height='300px';
+      textarea.onclick=log.style.display='none';
+			textarea.appendChild(document.createTextNode(packet.data.text))
+			line.innerHTML = ''
+      document.getElementById('TextareaHolder').innerHTML = ''
+      document.getElementById('TextareaHolder').appendChild(textarea)
+		}
+		log.insertBefore(line, log.firstChild);
+    
+	}
+  
+}
+function dispImg(e) {
+  if (FileReader && e.files && e.files.length) {
+    namaFile=e.files[0].name;
+    var fr = new FileReader();
+    fr.onload = function() {
+      var gambarPilihan=document.createElement('img');
+      gambarPilihan.setAttribute("height","250px");
+      gambarPilihan.setAttribute("title","Gambar Pilihan");
+      gambarPilihan.src=fr.result;
+      document.getElementById('imgHolder').innerHTML='';
+      document.getElementById('imgHolder').appendChild(gambarPilihan);
+    }
+    fr.readAsDataURL(e.files[0]);
+  }
+};
+  
+function recognizeFile(file){
+	document.querySelector("#log").innerHTML = ''
+	Tesseract.recognize(file, {
+		lang: document.querySelector('#langsel').value
+	}).progress(function(packet){
+    console.info(packet)
+    progressUpdate(packet)
+  }).then(function(data){
+    console.log(data)
+    progressUpdate({ status: 'done', data: data })
+  })
+  
+}
+
+function simpan() {
+  var text = document.getElementById("ocrtxt").value;
+  var filename = namaFile;
+  var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  writeFile(filename + ".txt", blob)
+};
+    </script>
+    <script>
+function proses(){
+  var OcrText=document.getElementById('ocrtxt');
+  var Notes=document.getElementById('notes');
+  Notes.innerHTML=OcrText.value
+};
+  //proses()
+ function windowPop(url) {
+  link = window.open(url,"Link","location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,left=0,top=0");
+}
+</script> 
 </body>
 </html>
