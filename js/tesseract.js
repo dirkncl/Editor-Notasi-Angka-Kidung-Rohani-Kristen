@@ -316,7 +316,7 @@ module.exports={
 'use strict';
 var defaultOptions = {
     corePath: makeAbsolutePath(document.URL, './core/0.1.0/index.js'),
-    langPath: '../lang-tess/3.02/'
+    langPath: makeAbsolutePath(document.URL, '../lang-tess/3.02/')
 };
 
 if (process.env.NODE_ENV === "development") {
