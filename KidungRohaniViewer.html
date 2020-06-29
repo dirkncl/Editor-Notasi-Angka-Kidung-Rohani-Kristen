@@ -33,7 +33,7 @@ function getNote(url){
 var arg = {};
 window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {arg[key] = value;});
 var ls = arg.q||"1.1.jpg.ukgeeks.txt";
-document.title=ls.replace("."+ls.split(".").pop())
+document.title=ls.replace("."+ls.split(".").pop(),"")
 if(ls){
   getNote(ls);
   document.write('<script type="text\/javascript" src=".\/js\/ukeGeeks.scriptasaurus.merged.js"><\/script>');
